@@ -1,0 +1,94 @@
+description
+ Program     : welcome.scl
+ Author      : J M Garrido, November 17, 2016.
+ Description : Display welcome message on the screen
+    and the value of variable x.
+ */
+import "scl.h"
+
+symbol LF 0Ah               // linefeed or newline
+symbol LF2 '\n'
+
+specifications
+enum days is
+   Monday = 3, Tuesday = 4, Wednesday = 6
+endenum days
+definetype enum days weekdays
+enum genderd is
+   Male = 'M', Female = 'F'
+endenum genderd
+definetype enum genderd gender
+
+struct abcd is
+  define x of type integer
+  define y of type integer
+  define z of type char
+endstruct abcd
+definetype struct abcd abcdT
+
+struct prestr is
+   define v1 of type char
+   define v2 of type byte
+   define v3 of type abcdT
+endstruct prestr   
+definetype struct prestr prestruct
+struct seds is
+   define var1 of type integer
+   define var2 of type gender
+   define var3 of type prestruct
+   define var4 array [15] of type char
+endstruct seds   
+
+definetype struct seds sedsT
+implementations
+
+description
+  Function main starts and ends all computations.
+  */
+function  main is
+variables
+    define x of type double   // a variable declaration 
+	define t of type double   // time of the second event
+	define  pt pointer of type double
+	define workd of type weekdays
+	define mgender of type gender
+	define mychar of type char
+	define mystr array [20] of type char
+structures
+    define myvar of type sedsT
+	define yvar of type sedsT
+begin      
+    display "Welcome to the world of SCL"
+	set mychar = 'Y'
+	set mystr[6] = 'Z'
+	set var4[5] in myvar = ' '
+	display "mychar: ", mychar
+	set workd = Tuesday
+	set mgender = 'M'
+    set x = 45.95             // assigns a value to variable x 
+    display "Value of x: ", x
+	input "type value of t: ", t
+	display "The value of t is: ", t
+	
+	set v1 in var3 in myvar = 'S'
+	
+	set x in v3 in var3 in yvar = 93
+	
+	// call printf using " x: %d \n ", x in v3 in var3 in yvar
+	if mgender equal Male then
+	   display "Male"
+	endif
+	if workd equal Tuesday then
+	   display "weekday", workd
+	endif
+	if x >= t then
+	   display t
+	else 
+	   display x
+	endif
+	if  not x greater or equal t then
+	  display x
+	endif
+	set mychar = LF
+    return 0                  // execution terminates OK 
+endfun main
